@@ -1,0 +1,28 @@
+PASS JSON 1.1 preserva data e vínculo de aula na exportação
+PASS datas impossíveis são rejeitadas
+PASS data desconhecida pode ser null
+PASS frase não pode referenciar aula inexistente
+PASS nova aula exige revisão do hub e mantém aulas anteriores
+PASS dados antigos sem datas continuam válidos
+PASS somente en-US é selecionado
+PASS ouvir usa texto limpo inteiro
+PASS repetição percorre cada grupo e respeita quantidade
+PASS construção do início acumula grupos
+PASS construção do final começa pelo último grupo
+PASS shadowing repete frase completa e limita repetições
+PASS grupo inválido não gera fala
+PASS reprodução usa voz americana e texto, nunca fonética
+PASS sem voz americana há erro explícito sem fallback de idioma
+PASS erro da voz para a sequência
+PASS parar durante fala resolve a sessão sem iniciar outro trecho
+PASS nova sessão cancela a anterior e ignora conclusão antiga
+PASS repetição intercala voz e sua vez
+PASS velocidade é limitada à faixa segura de configuração
+PASS arquivo da frase é usado sem sintetizar o texto inteiro
+PASS grupos usam TTS sem inventar cortes do arquivo
+PASS opção voz americana substitui arquivo explicitamente
+PASS falha de arquivo não troca referência silenciosamente
+PASS atualização assíncrona de vozes notifica a interface
+PASS limpeza remove temporizadores ao concluir
+
+26 testes R5 passaram.

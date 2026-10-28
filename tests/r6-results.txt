@@ -1,0 +1,41 @@
+PASS microfone não é solicitado na construção
+PASS iniciar e parar libera microfone e produz rascunho
+PASS rascunho não é sobrescrito por nova gravação
+PASS permissão negada deixa erro explícito sem rascunho
+PASS microfone ausente deixa erro explícito
+PASS cancelar solicitação libera stream concedido tardiamente
+PASS timeout de permissão invalida concessão tardia
+PASS gravação curta ou vazia não vira tentativa
+PASS limite de dois minutos finaliza e avisa
+PASS fim inesperado do track finaliza captura
+PASS evento stop repetido não duplica rascunho
+PASS contexto inseguro não solicita microfone
+PASS formato não reconhecido é rejeitado
+PASS autoavaliação cria tentativa sem áudio e sem inventar nota
+PASS gravação salva pode ficar sem autoavaliação
+PASS sem áudio e sem avaliação não cria tentativa
+PASS revisão é independente da autoavaliação e não duplica
+PASS conteúdo novo preserva tentativa antiga sem contar domínio atual
+PASS mudança apenas de dica mantém a prática atual
+PASS lixeira é reversível e não conta como prática ativa
+PASS exclusão permanente exige item na lixeira
+PASS tentativas ficam fora da exportação de conteúdo do aluno
+PASS backup ZIP mantém conteúdo, prática e bytes do áudio
+PASS restaurar o mesmo backup não duplica tentativas
+PASS backup inclui lixeira e não desfaz exclusão local automaticamente
+PASS áudio ausente bloqueia backup sem gerar arquivo incompleto
+PASS áudio de outro aluno bloqueia exportação
+PASS restauração de outro aluno é bloqueada sem mutar o estado
+PASS corrupção de bytes do áudio é detectada pelo CRC
+PASS caminhos inesperados são bloqueados antes de extrair
+PASS ZIP recomprimido não é aceito como backup desta versão
+PASS registros conflitantes não sobrescrevem tentativa existente
+PASS armazenamento temporário salva estado e blob juntos
+PASS versão concorrente falha sem gravar bytes ou metadados
+PASS IDs de áudio ficam isolados por aluno e namespace
+PASS blob duplicado aborta sem alterar a versão
+PASS remoção de áudio e estado funciona em uma confirmação
+PASS comparação toca referência antes da voz do aluno
+PASS ouvir gravação isolada não sintetiza referência
+
+39 testes R6 passaram.

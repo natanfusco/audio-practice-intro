@@ -1,0 +1,42 @@
+const assert=require('node:assert/strict'),fs=require('node:fs');
+const C=require('../src/core.js'),A=require('../src/audio.js');
+const results=[];async function test(name,fn){await fn();results.push('PASS '+name);console.log(results.at(-1));}
+const fixture=JSON.parse(fs.readFileSync(__dirname+'/../data/demo-conteudo.json','utf8'));
+const u={id:'p',text:'I go home, and I rest.',groups:[{text:'I go home,',pronunciation:'Não ler esta fonética.'},{text:'and I rest.',pronunciation:'Não ler esta fonética.'}],audio:{mode:'tts',url:null}};
+function mock({voices=[{lang:'pt-BR',voiceURI:'pt',name:'Português'},{lang:'en-US',voiceURI:'us',name:'US'}],speechError=null,fileError=false,autoEnd=true}={}){
+ const spoken=[],files=[],timers=[];let voiceEvent;
+ const synth={getVoices:()=>voices,addEventListener:(type,fn)=>{voiceEvent=fn;},removeEventListener:()=>{},cancel:()=>{},speak:utt=>{spoken.push(utt);if(autoEnd)queueMicrotask(()=>speechError?utt.onerror?.({error:speechError}):utt.onend?.());}};
+ class Utterance{constructor(text){this.text=text;}}
+ class Audio{constructor(){files.push(this);}pause(){}removeAttribute(){}load(){}play(){if(fileError)return Promise.reject(new Error('blocked'));queueMicrotask(()=>this.onended?.());return Promise.resolve();}}
+ const env={synth,Utterance,Audio,setTimer:(fn,ms)=>{const t={fn,ms,dead:false};timers.push(t);if(ms<=10000)queueMicrotask(()=>{if(!t.dead)fn();});return t;},clearTimer:t=>{if(t)t.dead=true;}};
+ return {engine:new A.PracticeAudio(env),spoken,files,timers,voiceEvent:()=>voiceEvent?.()};
+}
+(async()=>{
+ await test('JSON 1.1 preserva data e vínculo de aula na exportação',()=>{const state=C.planImport(C.emptyState(),fixture,{namespace:'demo'}).next;const out=C.exportPackage(state.students[0],null,true);assert.equal(out.schemaVersion,'1.1.0');assert.equal(out.hubs[3].lessons[0].date,'2026-10-01');assert.equal(out.hubs[3].utterances[0].lessonId,'demo-lesson-001');});
+ await test('datas impossíveis são rejeitadas',()=>{for(const date of ['2026-02-30','2026-13-01','28/10/2026']){const q=C.clone(fixture);q.hubs[3].lessons[0].date=date;assert.throws(()=>C.validatePackage(q),/Data/);}});
+ await test('data desconhecida pode ser null',()=>{const q=C.clone(fixture);q.hubs[3].lessons[0].date=null;C.validatePackage(q);});
+ await test('frase não pode referenciar aula inexistente',()=>{const q=C.clone(fixture);q.hubs[3].utterances[0].lessonId='absent';assert.throws(()=>C.planImport(C.emptyState(),q,{namespace:'demo'}),/Aula não encontrada/);});
+ await test('nova aula exige revisão do hub e mantém aulas anteriores',()=>{const before=C.planImport(C.emptyState(),fixture,{namespace:'demo'}).next;const q=C.clone(fixture);q.packageId='new-lesson-package';q.hubs=q.hubs.slice(3);q.hubs[0].lessons=[{id:'lesson-002',title:'Segunda aula','date':'2026-10-08'}];q.hubs[0].utterances=[];assert.throws(()=>C.planImport(before,q,{namespace:'demo'}),/Conflito no hub/);q.hubs[0].revision++;const plan=C.planImport(before,q,{namespace:'demo'});assert.equal(plan.stats.newLessons,1);assert.equal(plan.next.students[0].hubs[3].lessons.length,2);assert.equal(plan.next.students[0].hubs[3].utterances.length,1);});
+ await test('dados antigos sem datas continuam válidos',()=>{const p=JSON.parse(fs.readFileSync(__dirname+'/legacy-demo.json'));C.validatePackage(p);const state=C.planImport(C.emptyState(),p,{namespace:'demo'}).next;assert.equal(C.count(state.students[0]),2);});
+ await test('somente en-US é selecionado',()=>{assert.ok(A.american({lang:'en-US'}));assert.ok(A.american({lang:'en_US'}));assert.ok(!A.american({lang:'en-GB'}));assert.ok(!A.american({lang:'pt-BR'}));});
+ await test('ouvir usa texto limpo inteiro',()=>{const steps=A.stepsFor(u,'listen');assert.equal(steps[0].text,u.text);assert.equal(steps.length,1);assert.ok(!steps[0].text.includes('fonética'));});
+ await test('repetição percorre cada grupo e respeita quantidade',()=>{const steps=A.stepsFor(u,'repeat',0,3);assert.equal(steps.length,6);assert.deepEqual(steps.map(s=>s.indices[0]),[0,0,0,1,1,1]);});
+ await test('construção do início acumula grupos',()=>{const steps=A.stepsFor(u,'build',0,1);assert.equal(steps[0].text,'I go home,');assert.equal(steps[1].text,u.text);});
+ await test('construção do final começa pelo último grupo',()=>{const steps=A.stepsFor(u,'backchain',0,1);assert.equal(steps[0].text,'and I rest.');assert.equal(steps[1].text,u.text);});
+ await test('shadowing repete frase completa e limita repetições',()=>{assert.equal(A.stepsFor(u,'shadow',0,99).length,5);});
+ await test('grupo inválido não gera fala',()=>assert.throws(()=>A.stepsFor(u,'group',9),/grupo/));
+ await test('reprodução usa voz americana e texto, nunca fonética',async()=>{const m=mock();await m.engine.play(u);assert.equal(m.spoken.length,1);assert.equal(m.spoken[0].voice.voiceURI,'us');assert.equal(m.spoken[0].text,u.text);assert.equal(m.engine.status.state,'complete');m.engine.destroy();});
+ await test('sem voz americana há erro explícito sem fallback de idioma',async()=>{const m=mock({voices:[{lang:'en-GB',voiceURI:'uk'}]});await m.engine.play(u);assert.equal(m.spoken.length,0);assert.equal(m.engine.status.state,'error');assert.match(m.engine.status.message,/en-US/);m.engine.destroy();});
+ await test('erro da voz para a sequência',async()=>{const m=mock({speechError:'network'});await m.engine.play(u,{mode:'repeat',repetitions:2});assert.equal(m.spoken.length,1);assert.equal(m.engine.status.state,'error');m.engine.destroy();});
+ await test('parar durante fala resolve a sessão sem iniciar outro trecho',async()=>{const m=mock({autoEnd:false});const p=m.engine.play(u,{mode:'repeat'});m.engine.stop();await p;assert.equal(m.spoken.length,1);assert.equal(m.engine.status.state,'idle');m.engine.destroy();});
+ await test('nova sessão cancela a anterior e ignora conclusão antiga',async()=>{const m=mock({autoEnd:false});const first=m.engine.play(u);const old=m.spoken[0];const second=m.engine.play(u);old.onend?.();m.spoken[1].onend?.();await Promise.all([first,second]);assert.equal(m.engine.status.state,'complete');m.engine.destroy();});
+ await test('repetição intercala voz e sua vez',async()=>{const m=mock();const states=[];m.engine.subscribe(s=>states.push(s.state));await m.engine.play(u,{mode:'repeat',repetitions:1,gap:1});assert.equal(m.spoken.length,2);assert.equal(states.filter(s=>s==='waiting').length,2);assert.equal(m.engine.status.state,'complete');m.engine.destroy();});
+ await test('velocidade é limitada à faixa segura de configuração',async()=>{const m=mock();await m.engine.play(u,{rate:99});assert.equal(m.spoken[0].rate,1.1);m.engine.destroy();});
+ await test('arquivo da frase é usado sem sintetizar o texto inteiro',async()=>{const m=mock();const q={...u,audio:{mode:'file',url:'https://example.invalid/audio.mp3'}};await m.engine.play(q);assert.equal(m.files.length,1);assert.equal(m.spoken.length,0);assert.ok(m.files[0].preservesPitch);m.engine.destroy();});
+ await test('grupos usam TTS sem inventar cortes do arquivo',async()=>{const m=mock();const q={...u,audio:{mode:'file',url:'https://example.invalid/audio.mp3'}};await m.engine.play(q,{mode:'repeat',repetitions:1,gap:1});assert.equal(m.files.length,0);assert.equal(m.spoken.length,2);m.engine.destroy();});
+ await test('opção voz americana substitui arquivo explicitamente',async()=>{const m=mock();await m.engine.play({...u,audio:{mode:'file',url:'https://example.invalid/audio.mp3'}},{reference:'tts'});assert.equal(m.files.length,0);assert.equal(m.spoken.length,1);m.engine.destroy();});
+ await test('falha de arquivo não troca referência silenciosamente',async()=>{const m=mock({fileError:true});await m.engine.play({...u,audio:{mode:'file',url:'https://example.invalid/audio.mp3'}});assert.equal(m.engine.status.state,'error');assert.equal(m.spoken.length,0);m.engine.destroy();});
+ await test('atualização assíncrona de vozes notifica a interface',()=>{const m=mock();let count=0;const off=m.engine.subscribeVoices(()=>count++);m.voiceEvent();assert.equal(count,2);off();m.engine.destroy();});
+ await test('limpeza remove temporizadores ao concluir',async()=>{const m=mock();await m.engine.play(u,{mode:'repeat',repetitions:1,gap:1});assert.equal(m.engine.cleanups.length,0);assert.ok(m.timers.every(t=>t.dead));m.engine.destroy();});
+ fs.writeFileSync(__dirname+'/r5-results.txt',results.join('\n')+'\n\n'+results.length+' testes R5 passaram.\n');console.log('\n'+results.length+' testes R5 passaram.');
+})().catch(e=>{console.error(e);process.exitCode=1;});

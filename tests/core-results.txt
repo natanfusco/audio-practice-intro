@@ -1,0 +1,34 @@
+PASS exemplo e quatro hubs válidos
+PASS primeira importação vincula aluno
+PASS demonstração não entra no perfil real
+PASS JSON de outro aluno é bloqueado sem mutar origem
+PASS reimportação do mesmo pacote é idempotente
+PASS mesmo pacote com conteúdo divergente é bloqueado
+PASS mesma revisão com frase divergente é bloqueada
+PASS frase nova é acrescentada
+PASS revisão maior atualiza dica sem mudar assinatura de prática
+PASS mudança de pronúncia preserva snapshot anterior
+PASS revisão antiga mantém frase atual
+PASS pacote só Future preserva Present e notas
+PASS novo hub criado pelo JSON
+PASS ausência de frase não causa exclusão
+PASS metadados alterados exigem revisão nova do hub
+PASS alteração de nome mantém ID e mostra aviso
+PASS referência quebrada é rejeitada atomicamente
+PASS apresentação exige frases próprias existentes
+PASS JSON inválido e versão incompatível bloqueados
+PASS campos de professor não aceitos no JSON de aluno
+PASS grupos e ligações precisam preservar o inglês
+PASS IDs repetidos e destaques ausentes bloqueados
+PASS URL insegura ou com credenciais rejeitada
+PASS HTML importado permanece texto no modelo
+PASS limite de tamanho do arquivo aplicado
+PASS exportação de aluno novo gera quatro hubs vazios
+PASS professor com quatro alunos exporta somente um, sem notas
+PASS professor bloqueia importação no cadastro selecionado errado
+PASS backup administrativo restaura conteúdo e notas
+PASS restauração mantém alunos ausentes no backup
+PASS backup não é aceito como conteúdo do aluno
+PASS ordem das chaves não altera identidade do pacote
+
+32 testes passaram.

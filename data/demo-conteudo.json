@@ -1,0 +1,251 @@
+{
+  "format": "hof.practice.content",
+  "schemaVersion": "1.1.0",
+  "packageId": "demo-r5-001",
+  "isDemo": true,
+  "student": {
+    "id": "demo-student-001",
+    "displayName": "Aluno de demonstração"
+  },
+  "speech": {
+    "locale": "en-US",
+    "style": "conversational"
+  },
+  "hubs": [
+    {
+      "id": "present",
+      "revision": 1,
+      "title": "Present",
+      "order": 0,
+      "sections": [
+        {
+          "id": "part-a",
+          "title": "Part A",
+          "order": 0
+        },
+        {
+          "id": "part-b",
+          "title": "Part B",
+          "order": 1
+        }
+      ],
+      "utterances": [
+        {
+          "id": "present-b4",
+          "revision": 1,
+          "sectionId": "part-b",
+          "type": "response",
+          "text": "I don’t like driving, but it’s necessary.",
+          "groups": [
+            {
+              "id": "g1",
+              "text": "I don’t like driving,",
+              "connected": "I don’t like driving,",
+              "pronunciation": "ái dôunt láik drái-vin",
+              "highlights": [
+                {
+                  "text": "like",
+                  "occurrence": 1,
+                  "kind": "stress"
+                }
+              ]
+            },
+            {
+              "id": "g2",
+              "text": "but it’s necessary.",
+              "connected": "but‿it’s necessary.",
+              "pronunciation": "bâ-rits né-sã-sé-ri",
+              "highlights": [
+                {
+                  "text": "necessary",
+                  "occurrence": 1,
+                  "kind": "stress"
+                }
+              ]
+            }
+          ],
+          "tips": [
+            {
+              "id": "flap-t",
+              "label": "T americano",
+              "body": "Em uma realização natural de but it’s, o T pode soar como o R rápido de caro. Confira o áudio escolhido; não troque todo T por R."
+            },
+            {
+              "id": "final-consonant",
+              "label": "Final das palavras",
+              "body": "Em like, termine no som de K sem acrescentar uma vogal."
+            }
+          ],
+          "audio": {
+            "mode": "tts",
+            "url": null,
+            "reviewStatus": "unreviewed"
+          },
+          "sourceQuestion": "Do you like driving?"
+        },
+        {
+          "id": "presentation-present-001",
+          "revision": 1,
+          "sectionId": "part-b",
+          "type": "presentation",
+          "text": "I don’t like driving, but it’s necessary.",
+          "groups": [
+            {
+              "id": "g1",
+              "text": "I don’t like driving,",
+              "connected": "I don’t like driving,",
+              "pronunciation": "ái dôunt láik drái-vin",
+              "highlights": [
+                {
+                  "text": "like",
+                  "occurrence": 1,
+                  "kind": "stress"
+                }
+              ]
+            },
+            {
+              "id": "g2",
+              "text": "but it’s necessary.",
+              "connected": "but‿it’s necessary.",
+              "pronunciation": "bâ-rits né-sã-sé-ri",
+              "highlights": [
+                {
+                  "text": "necessary",
+                  "occurrence": 1,
+                  "kind": "stress"
+                }
+              ]
+            }
+          ],
+          "tips": [
+            {
+              "id": "flap-t",
+              "label": "T americano",
+              "body": "Em uma realização natural de but it’s, o T pode soar como o R rápido de caro. Confira o áudio escolhido; não troque todo T por R."
+            },
+            {
+              "id": "final-consonant",
+              "label": "Final das palavras",
+              "body": "Em like, termine no som de K sem acrescentar uma vogal."
+            }
+          ],
+          "audio": {
+            "mode": "tts",
+            "url": null,
+            "reviewStatus": "unreviewed"
+          },
+          "sourceQuestion": null
+        }
+      ],
+      "presentations": [
+        {
+          "id": "presentation-present",
+          "title": "Minha apresentação",
+          "utteranceIds": [
+            "presentation-present-001"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "past",
+      "revision": 1,
+      "title": "Past",
+      "order": 1,
+      "sections": [
+        {
+          "id": "part-a",
+          "title": "Part A",
+          "order": 0
+        },
+        {
+          "id": "part-b",
+          "title": "Part B",
+          "order": 1
+        }
+      ],
+      "utterances": [],
+      "presentations": []
+    },
+    {
+      "id": "future",
+      "revision": 1,
+      "title": "Future",
+      "order": 2,
+      "sections": [
+        {
+          "id": "part-a",
+          "title": "Part A",
+          "order": 0
+        },
+        {
+          "id": "part-b",
+          "title": "Part B",
+          "order": 1
+        }
+      ],
+      "utterances": [],
+      "presentations": []
+    },
+    {
+      "id": "classroom",
+      "revision": 2,
+      "title": "Classroom",
+      "order": 3,
+      "sections": [
+        {
+          "id": "class-phrases",
+          "title": "Frases da aula",
+          "order": 0
+        }
+      ],
+      "utterances": [
+        {
+          "id": "classroom-demo-001",
+          "revision": 1,
+          "sectionId": "class-phrases",
+          "lessonId": "demo-lesson-001",
+          "type": "response",
+          "sourceQuestion": null,
+          "text": "I like learning English with you.",
+          "groups": [
+            {
+              "id": "g1",
+              "text": "I like learning English",
+              "connected": "I like learning‿English",
+              "pronunciation": "ái láik lêr-nin íng-glish",
+              "highlights": []
+            },
+            {
+              "id": "g2",
+              "text": "with you.",
+              "connected": "with you.",
+              "pronunciation": "uíd iú",
+              "highlights": []
+            }
+          ],
+          "tips": [
+            {
+              "id": "example",
+              "label": "Exemplo fictício",
+              "body": "Esta frase e a data são apenas demonstração do funcionamento por aula."
+            }
+          ],
+          "audio": {
+            "mode": "tts",
+            "url": null,
+            "reviewStatus": "unreviewed"
+          }
+        }
+      ],
+      "presentations": [],
+      "lessons": [
+        {
+          "id": "demo-lesson-001",
+          "title": "Aula de demonstração",
+          "date": "2026-10-01"
+        }
+      ]
+    }
+  ]
+}

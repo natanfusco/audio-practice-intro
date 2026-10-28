@@ -1,0 +1,407 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "format": {
+      "const": "hof.practice.content"
+    },
+    "schemaVersion": {
+      "enum": [
+        "1.0.0",
+        "1.1.0"
+      ]
+    },
+    "packageId": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+    },
+    "isDemo": {
+      "type": "boolean"
+    },
+    "student": {
+      "$ref": "#/$defs/student"
+    },
+    "speech": {
+      "$ref": "#/$defs/speech"
+    },
+    "hubs": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/hub"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "format",
+    "schemaVersion",
+    "packageId",
+    "isDemo",
+    "student",
+    "speech",
+    "hubs"
+  ],
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hof:practice:content:1.1.0",
+  "title": "HoF Practice Content v1.1",
+  "$defs": {
+    "student": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "displayName"
+      ]
+    },
+    "speech": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "locale": {
+          "const": "en-US"
+        },
+        "style": {
+          "const": "conversational"
+        }
+      },
+      "required": [
+        "locale",
+        "style"
+      ]
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "enum": [
+            "tts",
+            "file"
+          ]
+        },
+        "url": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^https://"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reviewStatus": {
+          "enum": [
+            "unreviewed",
+            "reviewed"
+          ]
+        }
+      },
+      "required": [
+        "mode",
+        "url",
+        "reviewStatus"
+      ]
+    },
+    "highlight": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "occurrence": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "kind": {
+          "enum": [
+            "stress",
+            "reduction",
+            "sound"
+          ]
+        }
+      },
+      "required": [
+        "text",
+        "occurrence",
+        "kind"
+      ]
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "connected": {
+          "type": "string",
+          "minLength": 1
+        },
+        "pronunciation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "highlights": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/highlight"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "connected",
+        "pronunciation",
+        "highlights"
+      ]
+    },
+    "tip": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "body"
+      ]
+    },
+    "utterance": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "sectionId": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "type": {
+          "enum": [
+            "response",
+            "presentation"
+          ]
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/group"
+          },
+          "minItems": 1
+        },
+        "tips": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/tip"
+          }
+        },
+        "audio": {
+          "$ref": "#/$defs/audio"
+        },
+        "sourceQuestion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lessonId": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/section/properties/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "sectionId",
+        "type",
+        "text",
+        "groups",
+        "tips",
+        "audio",
+        "sourceQuestion"
+      ]
+    },
+    "section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "order"
+      ]
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "utteranceIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "utteranceIds"
+      ]
+    },
+    "hub": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]{0,119}$"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/section"
+          }
+        },
+        "utterances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/utterance"
+          }
+        },
+        "presentations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/presentation"
+          }
+        },
+        "lessons": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lesson"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "title",
+        "order",
+        "sections",
+        "utterances",
+        "presentations"
+      ]
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "date"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/section/properties/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

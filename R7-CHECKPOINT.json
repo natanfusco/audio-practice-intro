@@ -1,0 +1,172 @@
+{
+  "version": "R7",
+  "date": "2026-10-28",
+  "description": "Arquivos públicos idênticos à entrega R7; conteúdo pessoal dos alunos excluído.",
+  "files": [
+    {
+      "path": "COMECE-AQUI.md",
+      "sha256": "b874ba0783fb53cb4dccf646dfb31866498103c9b4fcf177a3c58864d480a1e5",
+      "bytes": 4345
+    },
+    {
+      "path": "LEIA-ME.md",
+      "sha256": "9574c98671727cee2b0871b439a1234a1d7047fb74fd9ebb3b237451d2c50a97",
+      "bytes": 10329
+    },
+    {
+      "path": "VALIDACAO.md",
+      "sha256": "e600f385c835b20362512b71155414affcd8b854a643ad03bae1520cf470e541",
+      "bytes": 5929
+    },
+    {
+      "path": "build.py",
+      "sha256": "832d0e34ac922481349b9107fceea27cb66df114250883aa3b44917f1b09e004",
+      "bytes": 3876
+    },
+    {
+      "path": "build_qa.py",
+      "sha256": "84f04526ee788dc638c7c98aea0c8adbbba40845ae03dcef971ec083963ca40f",
+      "bytes": 1429
+    },
+    {
+      "path": "build_r7_qa.py",
+      "sha256": "45ab09bdd358ca3b7d8496de822a8f7577543cf6128e0b40b1a2f6228a7497f5",
+      "bytes": 1066
+    },
+    {
+      "path": "build_ui_qa.py",
+      "sha256": "5d0877097043f1a822c7bad2cadd571a60ae972fcb500dfba48f69ffe285cb59",
+      "bytes": 1026
+    },
+    {
+      "path": "data/demo-conteudo.json",
+      "sha256": "50660c2531e3d8459ec81ad0113ef3f645db554e768dea67866afcb1909972e9",
+      "bytes": 6623
+    },
+    {
+      "path": "dist/demo-conteudo.json",
+      "sha256": "50660c2531e3d8459ec81ad0113ef3f645db554e768dea67866afcb1909972e9",
+      "bytes": 6623
+    },
+    {
+      "path": "dist/hof-content.schema.json",
+      "sha256": "a9f7a1d36adbc100bf1e895e48505e376f2d296d5a97471a0be87c6eded6fb27",
+      "bytes": 8244
+    },
+    {
+      "path": "dist/hof-student.html",
+      "sha256": "548a678e92452898e4c505e4561b1f00c18ada376c763c2356e81fe2e3d78565",
+      "bytes": 255197
+    },
+    {
+      "path": "dist/hof-teacher.html",
+      "sha256": "0e92de0fda4da3701597b0805cce06120142b4791de0658a8ae303cc51b67ed3",
+      "bytes": 255201
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "038d3fefbfbee876afe27c5ac4abfe4e259b8039cc2da499e1334a50dc78589d",
+      "bytes": 36158
+    },
+    {
+      "path": "hof-content.schema.json",
+      "sha256": "a9f7a1d36adbc100bf1e895e48505e376f2d296d5a97471a0be87c6eded6fb27",
+      "bytes": 8244
+    },
+    {
+      "path": "src/app.js",
+      "sha256": "4612767f536f52350bcad06b6a8fc3b176772b0bbe378f4a827503a7eb9a02b3",
+      "bytes": 67717
+    },
+    {
+      "path": "src/audio.js",
+      "sha256": "c940b72e5483235a22a0e76c68265684d2f8450a388df65d990ce8872a26925c",
+      "bytes": 8887
+    },
+    {
+      "path": "src/backup.js",
+      "sha256": "bfafcd91deaed08e31eb12889036b9918cd1e4853b120e3e40dcbea4edf30871",
+      "bytes": 9113
+    },
+    {
+      "path": "src/core.js",
+      "sha256": "9a5aae822e7ee486c7a057d65f4a5aa6f8513f7ba2dcd594f4356743ca02fa11",
+      "bytes": 14964
+    },
+    {
+      "path": "src/practice.js",
+      "sha256": "da4eb7a2e03b297e61a030c918c99faea8706733b19c747320511405732799d0",
+      "bytes": 7176
+    },
+    {
+      "path": "src/recorder.js",
+      "sha256": "59180c0e1019700693954f970f70e71f3aace6043926c123e8d21b32848eacdc",
+      "bytes": 6542
+    },
+    {
+      "path": "src/store.js",
+      "sha256": "0e8a33c3d20216420008ff73c151505929fd0f3a85203ba5b563a00843c20c93",
+      "bytes": 3735
+    },
+    {
+      "path": "src/style.css",
+      "sha256": "f0b3122be41359e2ad010267b59a642380f7d4804ae3034249b95027ce816710",
+      "bytes": 34752
+    },
+    {
+      "path": "tests/browser-qa.js",
+      "sha256": "b837ed031a4e8ba928032c3e0bdfe739374201029a125bf99f6c096d1e26a3b8",
+      "bytes": 5860
+    },
+    {
+      "path": "tests/core-results.txt",
+      "sha256": "2fc9242404a1680c67e2d21241560f6c168185632f29c398b681acd7ba6285de",
+      "bytes": 1640
+    },
+    {
+      "path": "tests/core.test.js",
+      "sha256": "8d2badb4863c112ac5c8e1e630566465072ffccc96b3398c0bef3457268738f1",
+      "bytes": 8559
+    },
+    {
+      "path": "tests/legacy-demo.json",
+      "sha256": "de62c7f2b24894360277c24526ec8c81f6b226bfc07d5b79fb9bbd192049c2da",
+      "bytes": 5208
+    },
+    {
+      "path": "tests/make-r7-ui-fixture.js",
+      "sha256": "eae87d29ee8f798f32f0bfa405240febc25675e4cf4de9cd02280504260d49d9",
+      "bytes": 1314
+    },
+    {
+      "path": "tests/r5-results.txt",
+      "sha256": "bc1d7d707a1533cd22c5ab91c52aba2bf4d9a9ed048746502933a0685da82c7b",
+      "bytes": 1386
+    },
+    {
+      "path": "tests/r5.test.js",
+      "sha256": "9df7169485bfae89fde4d43904a6d3f5db94c490d96256464150f1a9631acc67",
+      "bytes": 8541
+    },
+    {
+      "path": "tests/r6-results.txt",
+      "sha256": "1be143446efad3d141e6011fe70bab258425ce2808229b31f44761ce57c243d9",
+      "bytes": 2240
+    },
+    {
+      "path": "tests/r6.test.js",
+      "sha256": "71230823c477be383332712451407e2f863c67e07c106f24d094f0afb0226a1e",
+      "bytes": 15255
+    },
+    {
+      "path": "vendor/JSZip-LICENSE.md",
+      "sha256": "566c953c6090b1218ca6217dd7359d45dde46581968586dc607d59a78af6a9c4",
+      "bytes": 33753
+    },
+    {
+      "path": "vendor/jszip.min.js",
+      "sha256": "acc7e41455a80765b5fd9c7ee1b8078a6d160bbbca455aeae854de65c947d59e",
+      "bytes": 97630
+    }
+  ]
+}

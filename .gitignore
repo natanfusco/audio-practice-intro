@@ -1,0 +1,18 @@
+# Dados e backups reais de alunos
+data/*
+!data/demo-conteudo.json
+private/
+backups/
+recordings/
+*.zip
+*.webm
+*.wav
+*.m4a
+*.mp3
+*.ogg
+Pendencias_*.md
+# Artefatos locais de desenvolvimento
+dist/qa-*.html
+__pycache__/
+.DS_Store
+.openai/
